@@ -1,5 +1,5 @@
 {
-    "name": "mayronalves/laravel-bling-php-sdk",
+    "name": "lojametastore/laravel-bling-php-sdk",
     "description": "Biblioteca de integração com o Bling",
     "type": "library",
     "require": {
@@ -42,6 +42,10 @@
         {
             "name": "Mayron Alves",
             "email": "mayroonalves@gmail.com"
+        },
+        {
+            "name": "Kallef Alexandre",
+            "email": "kallef.alexandre@lojametastore.com.br"
         }
     ]
 }
