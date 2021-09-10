@@ -30,7 +30,7 @@ class Base
     /**
      * @param array $filters
      */
-    public function setFilters(array $filters): void
+    public function setFilters(array $filters): self
     {
         $this->filters = $filters;
     }
@@ -46,7 +46,7 @@ class Base
     /**
      * @param array $parameters
      */
-    public function setParameters(array $parameters): void
+    public function setParameters(array $parameters): self
     {
         $this->parameters = $parameters;
     }
@@ -62,7 +62,7 @@ class Base
     /**
      * @param array $body
      */
-    public function setBody(array $body): void
+    public function setBody(array $body): self
     {
         $this->body = $body;
     }
@@ -78,7 +78,7 @@ class Base
     /**
      * @param string $responseType
      */
-    public function setResponseType(string $responseType): void
+    public function setResponseType(string $responseType): self
     {
         $this->responseType = $responseType;
     }
