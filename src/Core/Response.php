@@ -2,6 +2,8 @@
 
 namespace Bling\Core;
 
+use Bling\Exceptions\ResponseException;
+use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 
 class Response
@@ -14,10 +16,16 @@ class Response
      */
     public function getResponseContents(ResponseInterface $response): string
     {
-        // if ($response->getStatusCode() != 200) {
-        //     throw new \Exception('Response status code is not 200, status code: ' . $response->getStatusCode());
-        // }
+         if ($response->getStatusCode() != 200 && $response->getStatusCode() != 201) {
+             throw new ResponseException($response);
+         }
 
-        return $response->getBody()->getContents();
+        return $this->prepareResponse($response->getBody()->getContents());
+    }
+
+    protected function prepareResponse(string $response): Collection
+    {
+        $data = json_decode($response, true);
+        return new Collection($data);
     }
 }

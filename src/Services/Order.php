@@ -20,17 +20,21 @@ class Order extends Base
     /**
      * @param string $numero
      */
-    public function setNumero(string $numero): void
+    public function setNumero(string $numero): self
     {
         $this->numero = $numero;
+        return $this;
+
     }
 
     /**
      * @param array $body
      */
-    public function setBody(array $body): void
+    public function setBody(array $body): self
     {
         $this->body = ['xml' => (new Body(new XMLBody('pedido')))->setBody($body)];
+        return $this;
+
     }
 
     public function all()

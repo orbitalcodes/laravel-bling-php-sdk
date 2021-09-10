@@ -20,17 +20,19 @@ class Category extends Base
     /**
      * @param string $id
      */
-    public function setId(string $id): void
+    public function setId(string $id): self
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
      * @param array $body
      */
-    public function setBody(array $body): void
+    public function setBody(array $body): self
     {
         $this->body = ['xml' => (new Body(new XMLBody('categorias')))->setBody(['categoria' => $body])];
+        return $this;
     }
 
     public function all()

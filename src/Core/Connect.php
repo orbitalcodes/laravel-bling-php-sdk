@@ -3,6 +3,7 @@
 namespace Bling\Core;
 
 use Bling\Contracts\RequestInterface;
+use Illuminate\Support\Collection;
 
 class Connect
 {
@@ -59,7 +60,7 @@ class Connect
         array $parameters = [],
         string $url = "",
         $customContentType = false
-    ) : string {
+    ) :? Collection {
         if ($customContentType) {
             $response = self::$apiClient->request($method, $url, $parameters);
         } else {

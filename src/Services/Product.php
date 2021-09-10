@@ -22,9 +22,10 @@ class Product extends Base
     /**
      * @param string $code
      */
-    public function setCode(string $code): void
+    public function setCode(string $code): self
     {
         $this->code = $code;
+        return $this;
     }
 
     /**
@@ -38,9 +39,10 @@ class Product extends Base
     /**
      * @param string $provider
      */
-    public function setProvider(string $provider): void
+    public function setProvider(string $provider): self
     {
         $this->provider = $provider;
+        return $this;
     }
 
     /**
@@ -54,17 +56,19 @@ class Product extends Base
     /**
      * @param int $page
      */
-    public function setPage(int $page): void
+    public function setPage(int $page): self
     {
         $this->page = $page;
+        return $this;
     }
 
     /**
      * @param array $body
      */
-    public function setBody(array $body): void
+    public function setBody(array $body): self
     {
         $this->body = ['xml' => (new Body(new XMLBody('produto')))->setBody($body)];
+        return $this;
     }
 
     public function all()
