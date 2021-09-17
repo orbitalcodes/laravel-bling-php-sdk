@@ -2,6 +2,7 @@
 
 namespace Bling\Core;
 
+use Bling\Exceptions\BlingResponseException;
 use Bling\Exceptions\ResponseException;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
@@ -14,18 +15,23 @@ class Response
      * @return string
      * @throws \Exception
      */
-    public function getResponseContents(ResponseInterface $response): string
+    public function getResponseContents(ResponseInterface $response): Collection
     {
-         if ($response->getStatusCode() != 200 && $response->getStatusCode() != 201) {
-             throw new ResponseException($response);
-         }
+        $content = json_decode($response->getBody()->getContents(), true);
 
-        return $this->prepareResponse($response->getBody()->getContents());
+        if ($response->getStatusCode() != 200 && $response->getStatusCode() != 201) {
+            throw new BlingResponseException($response, $content);
+        }
+
+        if (isset($content['retorno']['erros'])) {
+            throw new BlingResponseException($response, $content);
+        }
+
+        return $this->prepareResponse($content);
     }
 
-    protected function prepareResponse(string $response): Collection
+    protected function prepareResponse(array $content): Collection
     {
-        $data = json_decode($response, true);
-        return new Collection($data);
+        return new Collection(array_first($content['retorno'] ?? []));
     }
 }

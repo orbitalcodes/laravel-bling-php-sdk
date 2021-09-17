@@ -6,6 +6,7 @@ use Bling\Core\Client;
 use Bling\Services\Category;
 use Bling\Services\Order;
 use Bling\Services\Product;
+use Bling\Services\StoreProduct;
 use Bling\Services\Warehouse;
 
 class BlingApi implements BlingApiInterface
@@ -46,6 +47,11 @@ class BlingApi implements BlingApiInterface
     public function product()
     {
         return new Product();
+    }
+
+    public function storeProduct()
+    {
+        return new StoreProduct();
     }
 
     public function warehouse()

@@ -33,6 +33,7 @@ class Base
     public function setFilters(array $filters): self
     {
         $this->filters = $filters;
+        return $this;
     }
 
     /**
@@ -49,6 +50,7 @@ class Base
     public function setParameters(array $parameters): self
     {
         $this->parameters = $parameters;
+        return $this;
     }
 
     /**
@@ -65,6 +67,7 @@ class Base
     public function setBody(array $body): self
     {
         $this->body = $body;
+        return $this;
     }
 
     /**
@@ -81,6 +84,7 @@ class Base
     public function setResponseType(string $responseType): self
     {
         $this->responseType = $responseType;
+        return $this;
     }
 
     /**

@@ -2,63 +2,30 @@
 
 namespace Bling\Services;
 
+use Bling\Exceptions\BlingResponseException;
 use Bling\Helpers\XMLBody;
 use Bling\Helpers\Body;
+use Bling\Traits\CodeTrait;
+use Bling\Traits\PageTrait;
+use Bling\Traits\ProviderTrait;
 
 class Product extends Base
 {
+    use PageTrait, ProviderTrait, CodeTrait;
+
     private $code = '';
     private $provider = '';
     private $page = 1;
 
-    /**
-     * @return string
-     */
-    public function getCode(): string
+    public function withImages(): self
     {
-        return ($this->code ? '/' : '') . ltrim($this->code, '/');
-    }
-
-    /**
-     * @param string $code
-     */
-    public function setCode(string $code): self
-    {
-        $this->code = $code;
+        $this->setParameters(['imagem' => 'S']);
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getProvider(): string
+    public function withEstoque(): self
     {
-        return ($this->page ? '/' : '') . ltrim("page={$this->page}", '/');
-    }
-
-    /**
-     * @param string $provider
-     */
-    public function setProvider(string $provider): self
-    {
-        $this->provider = $provider;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPage(): string
-    {
-        return ($this->page ? '/' : '') . ltrim("page={$this->page}", '/');
-    }
-
-    /**
-     * @param int $page
-     */
-    public function setPage(int $page): self
-    {
-        $this->page = $page;
+        $this->setParameters(['estoque' => 'S']);
         return $this;
     }
 
@@ -81,14 +48,31 @@ class Product extends Base
             );
     }
 
-    public function get()
+    public function get(): array
     {
         return $this->connect
             ->execute(
                 'get',
                 $this->getMergedParameters(),
                 "produto{$this->getCode()}{$this->getProvider()}{$this->getResponseType()}"
-            );
+            )->pluck('produto')->first();
+    }
+
+    public function exists(): bool
+    {
+        try {
+            $this->connect
+                ->execute(
+                    'get',
+                    $this->getMergedParameters(),
+                    "produto{$this->getCode()}{$this->getProvider()}{$this->getResponseType()}"
+                )->pluck('produto')->first();
+
+            return true;
+
+        } catch (BlingResponseException $exception) {
+            return false;
+        }
     }
 
     public function store()
@@ -97,10 +81,16 @@ class Product extends Base
             ->execute('post', $this->getMergedParameters(), "produto{$this->getResponseType()}/");
     }
 
-    public function update()
+    public function update(): array
     {
         return $this->connect
-            ->execute('post', $this->getMergedParameters(), "produto{$this->getCode()}{$this->getResponseType()}/");
+            ->execute(
+                'post',
+                $this->getMergedParameters(),
+                "produto{$this->getCode()}{$this->getResponseType()}/"
+            )
+            ->pluck('produto')
+            ->first();
     }
 
     public function destroy()

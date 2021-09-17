@@ -36,7 +36,7 @@ class Connect
 
     public static function getInstance(RequestInterface $apiClient, Response $readResponse)
     {
-        self::$apiClient    = $apiClient;
+        self::$apiClient = $apiClient;
         self::$readResponse = $readResponse;
 
         if (self::$instance === null) {
@@ -57,15 +57,16 @@ class Connect
      */
     public function execute(
         string $method = "get",
-        array $parameters = [],
+        array  $parameters = [],
         string $url = "",
-        $customContentType = false
-    ) :? Collection {
+               $customContentType = false
+    ): ?Collection
+    {
         if ($customContentType) {
             $response = self::$apiClient->request($method, $url, $parameters);
         } else {
             $queryParameters = $this->getQueryParameters($method, $parameters);
-            $response        = self::$apiClient->$method($url, $queryParameters);
+            $response = self::$apiClient->$method($url, $queryParameters);
         }
 
         return self::$readResponse->getResponseContents($response);

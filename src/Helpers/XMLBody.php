@@ -23,7 +23,11 @@ class XMLBody implements BodyInterface
 
         foreach ($array as $k => $v) {
             if (is_array($v)) {
-                $this->toXml($v, $k, $_xml->addChild($k));
+                if(is_int($k)) {
+                    $this->toXml($v, $rootElement, $_xml->addChild($rootElement));
+                } else {
+                    $this->toXml($v, $k, $_xml->addChild($k));
+                }
             } else {
                 $_xml->addChild($k, $v);
             }
@@ -34,6 +38,9 @@ class XMLBody implements BodyInterface
 
     public function setBody(array $body): string
     {
-        return $this->toXml($body);
+        $xml = new \SimpleXMLElement('<root/>');
+        array_walk_recursive($body, array ($xml, 'addChild'));
+
+        return $xml->asXML();
     }
 }

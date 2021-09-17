@@ -34,7 +34,6 @@ class Order extends Base
     {
         $this->body = ['xml' => (new Body(new XMLBody('pedido')))->setBody($body)];
         return $this;
-
     }
 
     public function all()
