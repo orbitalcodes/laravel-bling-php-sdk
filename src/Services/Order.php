@@ -51,12 +51,16 @@ class Order extends Base
     public function store()
     {
         return $this->connect
-            ->execute('post', $this->getMergedParameters(), "pedido{$this->getResponseType()}/");
+            ->execute('post', $this->getMergedParameters(), "pedido{$this->getResponseType()}/")
+            ->pluck('pedido')
+            ->first();
     }
 
     public function update()
     {
         return $this->connect
-            ->execute('put', $this->getMergedParameters(), "pedido{$this->getNumero()}{$this->getResponseType()}/");
+            ->execute('put', $this->getMergedParameters(), "pedido{$this->getNumero()}{$this->getResponseType()}/")
+            ->pluck('pedido')
+            ->first();
     }
 }

@@ -78,7 +78,9 @@ class Product extends Base
     public function store()
     {
         return $this->connect
-            ->execute('post', $this->getMergedParameters(), "produto{$this->getResponseType()}/");
+            ->execute('post', $this->getMergedParameters(), "produto{$this->getResponseType()}/")
+            ->pluck('produto')
+            ->first();
     }
 
     public function update(): array
