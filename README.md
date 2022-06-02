@@ -1,1 +1,0 @@
-# bling-php-sdk-laravel
