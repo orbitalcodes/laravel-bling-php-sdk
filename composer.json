@@ -8,7 +8,7 @@
         "ext-json": "*",
         "lib-curl": "*",
         "lib-openssl": "*",
-        "guzzlehttp/guzzle": "~6.0",
+        "guzzlehttp/guzzle": "^7.2",
         "spatie/array-to-xml": "^2.16",
         "phpunit/phpunit": "^9.5"
     },
