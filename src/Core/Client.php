@@ -18,14 +18,6 @@ class Client implements RequestInterface
     {
     }
 
-    private function __wakeup()
-    {
-    }
-
-    private function __clone()
-    {
-    }
-
     public static function getInstance(array $config = [])
     {
         if (self::$instance === null) {
