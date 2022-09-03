@@ -24,7 +24,11 @@ class Base
      */
     public function getFilters(): array
     {
-        return $this->filters;
+        $filters = [];
+        foreach ($this->filters as $key => $filter) {
+            $filters[] = $key . '[' . $filter . ']';
+        }
+        return ['filters' => implode(';', $filters)];
     }
 
     /**
@@ -49,7 +53,7 @@ class Base
      */
     public function setParameters(array $parameters): self
     {
-        $this->parameters = $parameters;
+        $this->parameters = array_merge($this->parameters, $parameters);
         return $this;
     }
 
@@ -92,6 +96,6 @@ class Base
      */
     public function getMergedParameters(): array
     {
-        return $this->parameters + $this->body + $this->filters;
+        return $this->getParameters() + $this->getBody() + $this->getFilters();
     }
 }

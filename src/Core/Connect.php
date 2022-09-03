@@ -26,10 +26,6 @@ class Connect
     {
     }
 
-    private function __wakeup()
-    {
-    }
-
     private function __clone()
     {
     }
