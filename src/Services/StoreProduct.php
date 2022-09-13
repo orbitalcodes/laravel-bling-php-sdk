@@ -40,14 +40,12 @@ class StoreProduct extends Base
     public function exists(): bool
     {
         try {
-            $this->connect
-                ->execute(
-                    'get',
-                    $this->getMergedParameters(),
-                    "produtoLoja{$this->getCode()}{$this->getResponseType()}"
-                )->pluck('produtoLoja')->first();
-
-            return true;
+            return $this->connect
+                    ->execute(
+                        'get',
+                        $this->getMergedParameters(),
+                        "produto{$this->getCode()}{$this->getResponseType()}"
+                    )->pluck('produto.produtoLoja')->filter()->count() > 0;
 
         } catch (BlingResponseException $exception) {
             return false;
