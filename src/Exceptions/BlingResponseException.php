@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class BlingResponseException extends Exception
 {
-    public function __construct(ResponseInterface $response, array $content = [])
+    public function __construct(ResponseInterface $response, $content)
     {
         $erros = $content['retorno']['erros'] ?? [];
         $erro = [];
