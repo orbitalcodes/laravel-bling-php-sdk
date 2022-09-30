@@ -61,14 +61,12 @@ class Product extends Base
     public function exists(): bool
     {
         try {
-            $this->connect
+            return $this->connect
                 ->execute(
                     'get',
                     $this->getMergedParameters(),
                     "produto{$this->getCode()}{$this->getProvider()}{$this->getResponseType()}"
-                )->pluck('produto')->first();
-
-            return true;
+                )->pluck('produto')->filter()->count() > 0;
 
         } catch (BlingResponseException $exception) {
             return false;
